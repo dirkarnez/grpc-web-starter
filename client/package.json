@@ -1,0 +1,18 @@
+{
+  "name": "grpc-web-simple-example",
+  "version": "0.1.0",
+  "description": "gRPC-Web simple example",
+  "scripts": {
+    "build": "webpack ./client.js -o ./dist/bundle.js",
+    "protoc": "node ./tool/protogen.js"
+  },
+  "devDependencies": {
+    "google-protobuf": "^3.6.1",
+    "grpc-web": "^1.0.0",
+    "webpack": "^4.16.5",
+    "webpack-cli": "^3.1.0"
+  },
+  "dependencies": {
+    "chokidar": "^2.0.4"
+  }
+}
