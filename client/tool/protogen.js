@@ -22,9 +22,25 @@ function rebuild() {
    }, 
    (err, stdout, stderr) => {
       if (err) {
-         console.error(`!!!! ${err}`);
+         console.error(`[JS] ${err}`);
       } else {
-        console.error(`!!!! recompile`);
+        console.error(`[JS] recompile`);
       }
     });
+
+    exec("protoc --proto_path=server --go_out=server helloworld.proto", 
+    { 
+       env: {
+          ...process.env, 
+          Path: "C:\\protoc-3.6.1-win32\\bin;C:\\Users\\Alex Chan\\go\\bin"
+       },
+       cwd: ".."
+    }, 
+    (err, stdout, stderr) => {
+       if (err) {
+          console.error(`[GO] ${err}`);
+       } else {
+         console.error(`[GO] recompile`);
+       }
+     });
 }
