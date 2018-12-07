@@ -3,8 +3,7 @@ version: '3'
 services:
   envoy:
     build:
-      context: .
-      dockerfile: envoy.Dockerfile
+      context: ./envoy
     ports:
       - '8080:8080'
       - '9901:9901'
@@ -12,8 +11,9 @@ services:
       - server-net
   server:
     build:
-      context: .
-      dockerfile: server.Dockerfile
+      context: ./server
+    volumes:
+      - ./server/src:/go/src/github.com/dirkarnez/grpc-web-starter/server
     ports:
       - '9090:9090'
     networks:

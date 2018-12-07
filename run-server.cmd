@@ -1,1 +1,2 @@
-cd server && docker-compose up --build && cd ..
+docker-compose up --build
+pause

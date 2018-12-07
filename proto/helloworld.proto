@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package helloworld;
+package pb;
 
 service Greeter {
   // unary call

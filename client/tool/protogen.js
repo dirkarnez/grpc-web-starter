@@ -2,7 +2,7 @@ const chokidar = require('chokidar');
 const { exec } = require('child_process');
 const path = require("path");
 
-const buttonPressesLogFile = '../server/helloworld.proto';
+const buttonPressesLogFile = '../proto/helloworld.proto';
 
 console.log(`Watching for file changes on ${buttonPressesLogFile}`);
 
@@ -12,7 +12,7 @@ chokidar.watch(buttonPressesLogFile).on('all', (event, path) => {
 });
 
 function rebuild() {
-   exec(`protoc --proto_path=server helloworld.proto --js_out=import_style=commonjs:client/proto --grpc-web_out=import_style=commonjs+dts,mode=grpcwebtext:client/proto`, 
+   exec(`protoc --proto_path=proto helloworld.proto --js_out=import_style=commonjs:client/pb --grpc-web_out=import_style=commonjs+dts,mode=grpcwebtext:client/pb`, 
    { 
       env: {
          ...process.env, 
@@ -28,7 +28,7 @@ function rebuild() {
       }
     });
 
-    exec("protoc --proto_path=server --go_out=server helloworld.proto", 
+    exec("protoc --proto_path=proto --go_out=plugins=grpc:server/src/pb helloworld.proto", 
     { 
        env: {
           ...process.env, 
