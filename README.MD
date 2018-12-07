@@ -11,8 +11,5 @@
 * Back to the `client`, execute `npm install`
 * For every build, execute `npm run-script build`, make sure XXXX_pb.js files are ready beforehand
 
-### Generation of XXXX_pb.js
+### Generation of protobuf code
 * Execute `npm run-script protoc` in `client`
-
-### TODO
-- [ ] Add live reload to .proto files.
