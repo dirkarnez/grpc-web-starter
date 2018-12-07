@@ -12,7 +12,7 @@ chokidar.watch(buttonPressesLogFile).on('all', (event, path) => {
 });
 
 function rebuild() {
-   exec(`protoc --proto_path=server helloworld.proto --js_out=import_style=commonjs:client --grpc-web_out=import_style=commonjs,mode=grpcwebtext:client`, 
+   exec(`protoc --proto_path=server helloworld.proto --js_out=import_style=commonjs:client/proto --grpc-web_out=import_style=commonjs+dts,mode=grpcwebtext:client/proto`, 
    { 
       env: {
          ...process.env, 
