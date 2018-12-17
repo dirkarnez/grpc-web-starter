@@ -1,0 +1,37 @@
+syntax = "proto3";
+
+package pb;
+
+// import "google/protobuf/Empty.proto"; google.protobuf.Empty
+
+service ChatRoom {
+  rpc SignIn (SignInRequest) returns (stream IncomingMessageStream);
+  rpc SendMessage (SendMessageRequest) returns (SendMessageReply);
+  rpc Leave (LeaveRequest) returns (LeaveReply);
+}
+
+message SignInRequest {
+  string name = 1;
+}
+
+message SendMessageRequest {
+  string name = 1;
+  string message = 2;
+}
+
+message SendMessageReply {
+  bool success = 1;
+}
+
+message IncomingMessageStream {
+  string from = 1;
+  string message = 2;
+}
+
+message LeaveRequest {
+  string name = 1;
+}
+
+message LeaveReply {
+  bool success = 1;
+}

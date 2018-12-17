@@ -1,10 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>gRPC-Web Example</title>
-<script src="./bundle.js"></script>
+      <meta charset="UTF-8">
+      <title>gRPC-Web Example</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 </head>
 <body>
+  
+<div class="container">
+    <div id="login" class="row">
+      <div class="input-group mb-3">
+        <input id="inputUserName" type="text" class="form-control" placeholder="User Name">
+        <div class="input-group-append">
+          <button id="btnSignIn" class="btn btn-success" type="submit">Sign In</button> 
+        </div>
+      </div>
+    </div>
+    <div id="chatroom" class="row">
+      <button id="btnSignOut" class="btn btn-success" type="submit">Sign out</button> 
+      <div class="input-group mb-3">
+        <input  id="inputMessageToSend" type="text" class="form-control" placeholder="Message">
+        <div class="input-group-append">
+          <button id="btnSendMessage" class="btn btn-success" type="submit">Send Message</button> 
+        </div>
+      </div>
+      <div id="messages"></div>
+    </div>
+</div>
+<script src="./bundle.js"></script>
 </body>
 </html>

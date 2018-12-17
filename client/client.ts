@@ -1,29 +1,65 @@
-import { HelloRequest, RepeatHelloRequest } from "./pb/helloworld_pb";
-import { GreeterPromiseClient } from "./pb/helloworld_grpc_web_pb";
+import { SignInRequest, SendMessageRequest } from "./pb/chatroom_pb"
+import { ChatRoomPromiseClient } from "./pb/chatroom_grpc_web_pb";
 
-var client = new GreeterPromiseClient('http://' + window.location.hostname + ':8080', null, null);
+var client = new ChatRoomPromiseClient(`http://${window.location.hostname}:8080`, null, null);
 
-var helloRequest = new HelloRequest();
-helloRequest.setName("HelloRequest");
+var userNameLogined = "";
 
-client.sayHello(helloRequest, {})
-      .then(response => console.log(response.getMessage()))
-      .catch(err => console.log(err));
-      
-var repeatHelloRequest = new RepeatHelloRequest();
-repeatHelloRequest.setName("RepeatHelloRequest");
-repeatHelloRequest.setCount(10);
+function display(id: string, enabled: boolean) {
+      document.getElementById(id).style.display = enabled ? "block" : "none";
+}
 
-client.sayRepeatHello(repeatHelloRequest, {}).on("data", response => {
-      console.log(response.getMessage());
-});
+function login() {
+      display("login", true);
+      display("chatroom", false);
+}
 
-var deadline = new Date();
-deadline.setSeconds(deadline.getSeconds() + 1);
+function enterChatroom() {
+      display("login", false);
+      display("chatroom", true);
+}
 
-var helloAfterDelayRequest = new HelloRequest();
-helloAfterDelayRequest.setName("HelloAfterDelayRequest");
+function logout() {
+      userNameLogined = "";
+      login();
+}
 
-client.sayHelloAfterDelay(helloAfterDelayRequest, { deadline: deadline.getTime().toString() })
-      .then(response => console.log(response.getMessage()))
-      .catch(err => console.log(err));
+login();
+
+var btnSignIn = document.getElementById("btnSignIn");
+var messages = document.getElementById("messages");
+
+btnSignIn.onclick = function() {
+      var signInRequest = new SignInRequest();
+
+      var inputtedUserName = (<HTMLInputElement>document.getElementById("inputUserName")).value;
+      signInRequest.setName(inputtedUserName);
+
+      client
+      .signIn(signInRequest, {})
+      .on("data", response => {
+            userNameLogined = inputtedUserName;
+            var p = document.createElement("p");
+            p.innerHTML = `${response.getFrom()}: ${response.getMessage()}`;
+            messages.appendChild(p);
+      });
+      enterChatroom();
+};
+
+
+
+var inputMessageToSend = <HTMLInputElement>document.getElementById("inputMessageToSend");
+var btnSendMessage = document.getElementById("btnSendMessage");
+var btnSignOut = document.getElementById("btnSignOut");
+
+
+btnSendMessage.onclick = function () {
+      var sendMessageRequest = new SendMessageRequest();
+      sendMessageRequest.setName(userNameLogined);
+      sendMessageRequest.setMessage(inputMessageToSend.value);
+      client.sendMessage(sendMessageRequest, {})
+            //.then(response => button.innerText = response.getMessage())
+            //.catch(err => button.innerText = err);
+};
+
+btnSignOut.onclick = logout;
