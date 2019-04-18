@@ -13,3 +13,6 @@
 
 ### Generation of protobuf code
 * Execute `npm run-script protoc` in `client`
+
+### TODO
+- [ ] https://github.com/SafetyCulture/grpc-web-devtools
